@@ -10,3 +10,7 @@ Happy coding!
 ## Before starting
 
 You'll need to install *pandoc* for it to work.
+
+## About de markdown files
+
+It's important to note the structure of the name files. It goes like ''*_post.md''
