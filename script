@@ -1,3 +1,0 @@
-#!/bin/bash
-
-sed "/%.*/ d; /#.*/ d; /^$/ d;" ${1}.md | head -c 40 | pandoc -o ${1}.html
