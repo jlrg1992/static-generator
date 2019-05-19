@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for f in `ls ./markdown`
+do
+	cat templates/header.html >> site/${f%.md}.html
+	pandoc "./markdown/${f}" >> site/${f%.md}.html
+	cat templates/footer.html >> site/${f%.md}.html
+
+done
