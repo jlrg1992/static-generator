@@ -34,7 +34,7 @@ cat templates/footer.html >> site/index.html
 
 cd site
 
-read -p "Insert commit message:" LOL
+read -p "Insert commit message: " LOL
 git add -A
 git commit -m "$LOL"
 git push
