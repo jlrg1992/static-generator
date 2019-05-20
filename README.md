@@ -13,4 +13,9 @@ You'll need to install *pandoc* for it to work.
 
 ## About de markdown files
 
-It's important to note the structure of the name files. It goes like `*_post.md`.
+The mardown files need some metadata for it to work. It has the following structure:
+'''
+	title: Some title
+	subtitle: A little thing here...
+	date: Whichever format you want
+'''
