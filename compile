@@ -27,6 +27,7 @@ do
 
 rm *.tmp
 rm .tmp
+rm tr.tmp
 
 done
 
