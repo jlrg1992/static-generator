@@ -1,6 +1,8 @@
-% Acondroplasia
-% Jorge L. Rangel
-% 3 de mayo de 2019
+---
+title: Acondroplasia
+subtitle: La acondroplasia (MIM 100800) es la causa más frecuente de enanismo en los seres humanos...
+date: 19-05-2019
+---
 
 # Acondroplasia
 
@@ -61,6 +63,8 @@ Dada la hipoplasia mediofacial, sufren de apiñamiento de los dientes, apnea obs
 El riesgo de muerte en pacientes por acondroplasia es del 7.5%, en gran parte por la estenosis del foramen magno.[^2]
 
 Otras complicaciones son la obesidad (16% de los pacientes), estenosis de la columna lumbar (que empeora en el caso de los pacientes obesos por las complicaciones cardiovasculares y lesiones articulares) y genu varum.[^1][^2]
+
+## Bibliografía
 
 [^1]: Genética en Medicina. Thompson & Thompson. 7ª edición (2008). R. L. Nussbaum, R.R. McInnes y H.F. Willard. Elsevier-Masson, S.A., Barcelona. Edición española de la séptima americana.
 [^2]: Hernández-Motiño Luis Carlos, Sujey Brizuela Yarisa, Vizcarra Verónica, Cruz Revilla Rubén, Jamaica Balderas Lourdes, Karam Bechara José. Acondroplasia -estenosis del canal medular- una complicación neurológica. Bol. Med. Hosp. Infant. Mex. [revista en la Internet]. 2012 Feb [citado 2017 Ago 02] ; 69( 1 ): 46-49. Disponible en: http://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1665-11462012000100007&lng=es.

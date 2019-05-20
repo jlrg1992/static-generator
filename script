@@ -2,8 +2,21 @@
 
 for f in `ls ./markdown`
 do
-	cat templates/header.html >> site/${f%.md}.html
-	pandoc "./markdown/${f}" >> site/${f%.md}.html
-	cat templates/footer.html >> site/${f%.md}.html
+	head markdown/${f} > a.tmp
+	grep -o ".*:.*" a.tmp > b.tmp
+	while read y
+		do
+			echo $y > x.tmp
+			VARY=`awk -F ": " ' {print $1}' x.tmp`
+			VARX=`awk -F ": " ' {print $2}' x.tmp`
+			declare "$VARY=$VARX"
+		done < b.tmp
+	pandoc "./markdown/${f}" >> l.tmp
+	cat templates/header.html l.tmp templates/footer.html > .tmp
+	sed "s/momotitlemomo/${title}/g 
+		s/momosubtitlemomo/${subtitle}/g
+		s/momodatemomo/${date}/ g" .tmp > site/${f%.md}.html
+rm .tmp
+rm l.tmp
 
 done
