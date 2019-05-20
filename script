@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+cat templates/header.html templates/index-header.html > tr.tmp
+sed "/momotitlemomo/ d" tr.tmp > site/index.html
 for f in `ls ./markdown`
 do
 	head markdown/${f} > a.tmp
@@ -12,11 +15,17 @@ do
 			declare "$VARY=$VARX"
 		done < b.tmp
 	pandoc "./markdown/${f}" >> l.tmp
-	cat templates/header.html l.tmp templates/footer.html > .tmp
+	cat templates/header.html templates/post-header.html l.tmp templates/footer.html > .tmp
 	sed "s/momotitlemomo/${title}/g 
 		s/momosubtitlemomo/${subtitle}/g
 		s/momodatemomo/${date}/ g" .tmp > site/${f%.md}.html
+	cat templates/feed.html > ip.tmp
+	sed "s/momotitlemomo/${title}/g 
+		s/momosubtitlemomo/${subtitle}/g
+		s/momolinkmomo/${f%.md}.html/g
+		s/momodatemomo/${date}/ g" ip.tmp >> site/index.html
 
+cat templates/footer.html >> site/index.html
 rm *.tmp
 rm .tmp
 
