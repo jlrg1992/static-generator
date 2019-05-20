@@ -25,8 +25,9 @@ do
 		s/momolinkmomo/${f%.md}.html/g
 		s/momodatemomo/${date}/ g" ip.tmp >> site/index.html
 
-cat templates/footer.html >> site/index.html
 rm *.tmp
 rm .tmp
 
 done
+
+cat templates/footer.html >> site/index.html
