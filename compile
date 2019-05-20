@@ -3,7 +3,7 @@
 
 cat templates/header.html templates/index-header.html > tr.tmp
 sed "/momotitlemomo/ d" tr.tmp > site/index.html
-for f in `ls ./markdown`
+for f in `ls -t ./markdown`
 do
 	head markdown/${f} > a.tmp
 	grep -o ".*:.*" a.tmp > b.tmp
