@@ -14,8 +14,8 @@ You'll need to install *pandoc* for it to work.
 ## About de markdown files
 
 The mardown files need some metadata for it to work. It has the following structure:
-'''
+```
 	title: Some title
 	subtitle: A little thing here...
 	date: Whichever format you want
-'''
+```
