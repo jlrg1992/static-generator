@@ -16,6 +16,8 @@ do
 	sed "s/momotitlemomo/${title}/g 
 		s/momosubtitlemomo/${subtitle}/g
 		s/momodatemomo/${date}/ g" .tmp > site/${f%.md}.html
+
 rm *.tmp
+rm .tmp
 
 done
