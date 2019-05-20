@@ -1,4 +1,4 @@
-# static-py-generator
+# static-generator
 The static site generator that I built to work for me.
 I've looked over some of them, but I think they are simply to much for what I need, so I built this little thing. It is not intended to work for everybody.
 
