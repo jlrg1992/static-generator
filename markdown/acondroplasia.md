@@ -4,6 +4,8 @@ subtitle: La acondroplasia (MIM 100800) es la causa más frecuente de enanismo e
 date: 19-05-2019
 ---
 
+# Acondroplasia
+
 Definición
 ----------
 
