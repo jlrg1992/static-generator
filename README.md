@@ -15,7 +15,23 @@ You'll need to install *pandoc* for it to work.
 
 The mardown files need some metadata for it to work. It has the following structure:
 ```
+	---
 	title: Some title
 	subtitle: A little thing here...
 	date: Whichever format you want
+	---
 ```
+
+It has to be at the very begining of the markdown file.
+
+If you want to make use of your own template, make sure to use the same names. To use the metadata of each markdown, you'll have to write as:
+
+```
+momotitlemomo
+momosubtitlemomo
+momodatemomo
+```
+
+Check out the scripts before using it.
+
+The template I use was made by BlackrockDigital. You can find the original repo at [startbootstrap-clean-blog](https://github.com/BlackrockDigital/startbootstrap-clean-blog)
