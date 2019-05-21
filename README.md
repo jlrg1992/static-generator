@@ -9,10 +9,11 @@ Happy coding!
 
 ## Before starting
 
-You'll need to install *pandoc* for it to work.
+You'll need to install *pandoc* for it to work. Make sure to create a site directory and a markdown-blog directory.
 
 ## About de markdown files
 
+They are supposed to be stored at the markdown-blog directory
 The mardown files need some metadata for it to work. It has the following structure:
 ```
 	---
