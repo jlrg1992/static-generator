@@ -35,3 +35,6 @@ momodatemomo
 Check out the scripts before using it.
 
 The template I use was made by BlackrockDigital. You can find the original repo at [startbootstrap-clean-blog](https://github.com/BlackrockDigital/startbootstrap-clean-blog)
+Make sure to add your javascript and css files in the site directory. If you want to have it as my blog clone this repository and inside of the site directory clone my [blog repo](https://github.com/jlrg1992/blog.git). That way you can have it as a github pages.
+
+Happy coding!!!
