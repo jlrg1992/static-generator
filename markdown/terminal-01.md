@@ -38,7 +38,7 @@ Para moverte de una carpeta a otra se utiliza `cd`(change directory). Este coman
 
 ¿Y cómo regreso a la carpeta que estaba antes? Si te fijas con `pwd` debes de haber recibido una respuesta como `/Users/tu-usuario/Desktop` para regresar a la carpeta "tu-usuario" hay tres maneras.
 
-````
+```
 // La primera:
 cd /Users/tu-usuario
 
