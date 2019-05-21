@@ -134,8 +134,7 @@ de la columna lumbar (que empeora en el caso de los pacientes obesos por
 las complicaciones cardiovasculares y lesiones articulares) y genu
 varum.<span class="cita">1</span> <span class="cita">2</span>
 
-Bibliografía
-------------
+## Bibliografía
 
 1.  Genética en Medicina. Thompson & Thompson. 7ª edición (2008). R. L.
     Nussbaum, R.R. McInnes y H.F. Willard. Elsevier-Masson,
