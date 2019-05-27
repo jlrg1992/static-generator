@@ -6,13 +6,9 @@ sed "/momotitlemomo/ d" tr.tmp > blog/index.html
 for f in `ls -t ./markdown-blog`
 do
 	grep 'e: ' "markdown-blog/$f" > b.tmp
-	while read y
-		do
-			echo $y > x.tmp
-			VARY=`awk -F ": " ' {print $1}' x.tmp`
-			VARX=`awk -F ": " ' {print $2}' x.tmp`
-			declare "$VARY=$VARX"
-		done < b.tmp
+	sed "s/: /='/g
+		s/$/'/g" b.tmp > v.tmp
+	source v.tmp
 	pandoc "./markdown-blog/${f}" >> l.tmp
 	cat templates/header.html templates/post-header.html l.tmp templates/footer.html > .tmp
 	sed "s/momotitlemomo/${title}/g 
