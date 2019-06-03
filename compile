@@ -2,7 +2,7 @@
 
 
 cat templates/header.html templates/index-header.html > tr.tmp
-sed "/momotitlemomo/ d" tr.tmp > blog/index.html
+sed "s/momotitlemomo/ /g" tr.tmp > blog/index.html
 for f in `ls -t ./markdown-blog`
 do
 	grep 'e: ' "markdown-blog/$f" > b.tmp
