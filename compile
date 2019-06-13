@@ -2,37 +2,37 @@
 
 
 cat templates/header.html templates/index-header.html > tr.tmp
-sed "s/momotitlemomo/Inicio/g" tr.tmp > blog/index.html
-for f in `ls -t ./markdown-blog`
+sed "s/momotitlemomo/Inicio/g" tr.tmp > ../blog/index.html
+for f in `ls -t ../markdown-blog`
 do
-	grep 'e: ' "markdown-blog/$f" > b.tmp
+	grep 'e: ' "../markdown-blog/$f" > b.tmp
 	sed "s/: /='/g
 		s/$/'/g" b.tmp > v.tmp
 	source v.tmp
-	pandoc "./markdown-blog/${f}" >> l.tmp
+	pandoc "../markdown-blog/${f}" >> l.tmp
 	cat templates/header.html templates/post-header.html l.tmp templates/footer.html > .tmp
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
-		s/momodatemomo/${date}/ g" .tmp > blog/${f%.md}.html
+		s/momodatemomo/${date}/ g" .tmp > ../blog/${f%.md}.html
 
 	cat templates/feed.html > ip.tmp
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
 		s/momolinkmomo/${f%.md}.html/g
-		s/momodatemomo/${date}/ g" ip.tmp >> blog/index.html
+		s/momodatemomo/${date}/ g" ip.tmp >> ../blog/index.html
 
 rm *.tmp
 rm .tmp
 
 done
 
-cat templates/footer.html >> blog/index.html
+cat templates/footer.html >> ../blog/index.html
 
 read -p "Do want to push (y/n) " PUSH
 
 if [ "$PUSH" = "y" ]
 then
-    cd blog
+    cd ../blog
 
     read -p "Insert commit message: " LOL
     git add -A
