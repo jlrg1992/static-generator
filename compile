@@ -53,9 +53,15 @@ read -p "Do want to push (y/n) " PUSH
 
 if [ "$PUSH" = "y" ]
 then
+    echo "Pushing blog"
     cd ../blog
-
     read -p "Insert commit message: " LOL
+    git add -A
+    git commit -m "$LOL"
+    git push
+
+    echo "Pushing markdown"
+    cd ../markdown-blog
     git add -A
     git commit -m "$LOL"
     git push
