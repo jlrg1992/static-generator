@@ -2,32 +2,35 @@
 
 # Reset directory
 cd `dirname $0`
-rm -rf ../blog/*
-cp -R ./assets/* ../blog
+rm -rf ../$1/*
+cp -R ./assets/* ../$1
 
 
 function compilingFeed(){
 
 # Getting posts metadata
-    sed -n '/^\-\-\-$/,/^\-\-\-$/p' "../markdown-blog/$1" > ./h.tmp
+    sed -n '/^\-\-\-$/,/^\-\-\-$/p' "../markdown-$1/$1" > ./h.tmp
 	grep ': ' "./h.tmp" > ./b.tmp
 	sed "s/: /='/g
 		s/$/'/g" ./b.tmp > ./v.tmp
 	source ./v.tmp
 
 # Create html
-	pandoc "../markdown-blog/${f}" >> ./l.tmp
+
+    sed '/^\-\-\-$/,/^\-\-\-$/d' "../markdown-$1/$1" > ./r.tmp
+        
+	python -m markdown "./r.tmp" >> ./l.tmp
 	cat templates/header.html templates/post-header.html ./l.tmp templates/footer.html > ./.tmp
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
-		s/momodatemomo/${date}/ g" ./.tmp > ../blog/${f%.md}.html
+		s/momodatemomo/${date}/ g" ./.tmp > ../$1/${f%.md}.html
 
 # Create index feed
 	cat templates/feed.html > ./ip.tmp
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
 		s/momolinkmomo/${f%.md}.html/g
-		s/momodatemomo/${date}/ g" ./ip.tmp >> ../blog/index.html
+		s/momodatemomo/${date}/ g" ./ip.tmp >> ../$1/index.html
 
 # Delete tmp files with the markdown metadata
     rm ./*.tmp
@@ -37,31 +40,31 @@ function compilingFeed(){
 
 # Compiling metadata to index.html
 cat templates/header.html templates/index-header.html > ./tr.tmp
-sed "s/momotitlemomo/Inicio/g" ./tr.tmp > ../blog/index.html
+sed "s/momotitlemomo/Inicio/g" ./tr.tmp > ../$1/index.html
 
 # Looping md
-for f in `ls -t ../markdown-blog`
+for f in `ls -t ../markdown-$1`
 do
     compilingFeed $f
 done
 
 # Index footer
-cat templates/footer.html >> ../blog/index.html
+cat templates/footer.html >> ../$1/index.html
 
 # Wanna commit?
 read -p "Do want to push (y/n) " PUSH
 
 if [ "$PUSH" = "y" ]
 then
-    echo "Pushing blog"
-    cd ../blog
+    echo "Pushing apuntes"
+    cd ../$1
     read -p "Insert commit message: " LOL
     git add -A
     git commit -m "$LOL"
     git push
 
     echo "Pushing markdown"
-    cd ../markdown-blog
+    cd ../markdown-$1
     git add -A
     git commit -m "$LOL"
     git push
