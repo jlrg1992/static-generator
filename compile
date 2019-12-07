@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Reset directory
+folder='blog'
 cd `dirname $0`
-rm -rf ../$1/*
-cp -R ./assets/* ../$1
-folder=`echo $1`
+rm -rf ../$folder/*
+cp -R ./assets/* ../$folder
 
 
  compilingFeed(){
@@ -20,7 +20,7 @@ folder=`echo $1`
 
     sed '/^\-\-\-$/,/^\-\-\-$/d' "../markdown-$folder/$1" > ./r.tmp
         
-	python -m markdown "./r.tmp" >> ./l.tmp
+	pandoc "./r.tmp" >> ./l.tmp
 	cat templates/header.html templates/post-header.html ./l.tmp templates/footer.html > ./.tmp
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
@@ -41,7 +41,7 @@ folder=`echo $1`
 
 # Compiling metadata to index.html
 cat templates/header.html templates/index-header.html > ./tr.tmp
-sed "s/momotitlemomo/Inicio/g" ./tr.tmp > ../$1/index.html
+sed "s/momotitlemomo/Inicio/g" ./tr.tmp > ../$folder/index.html
 
 # Looping md
 for f in `ls -t ../markdown-$folder`
@@ -57,14 +57,14 @@ read -p "Do want to push (y/n) " PUSH
 
 if [ "$PUSH" = "y" ]
 then
-    echo "Pushing apuntes"
+    echo "Pushing $folder"
     cd ../$folder
     read -p "Insert commit message: " LOL
     git add -A
     git commit -m "$LOL"
     git push
 
-    echo "Pushing markdown"
+    echo "Pushing markdown-$folder"
     cd ../markdown-$folder
     git add -A
     git commit -m "$LOL"
