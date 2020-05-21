@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Reset directory
-folder="$1"
+folder="${1:-'blog'}"
 cd `dirname $0`
 rm -rf ../$folder/*
 cp -R ./assets/* ../$folder
