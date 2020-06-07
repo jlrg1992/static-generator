@@ -10,10 +10,7 @@ cp -R ./assets/* ../$folder
  compilingFeed(){
 
 # Getting posts metadata
-    sed -n '/^\-\-\-$/,/^\-\-\-$/p' "../markdown-$folder/$1" > ./h.tmp
-	grep ': ' "./h.tmp" > ./b.tmp
-	sed "s/: /='/g
-		s/$/'/g" ./b.tmp > ./v.tmp
+  sed -n " /^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /='/g ; s/$/'/g ; p}" ../markdown-$folder/$1 > ./v.tmp
 	source ./v.tmp
 
 # Create html
@@ -24,13 +21,13 @@ cp -R ./assets/* ../$folder
 	cat templates/header.html templates/post-header.html ./l.tmp templates/footer.html > ./.tmp
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
-		s/momodatemomo/${date}/ g" ./.tmp > ../$folder/${f%.md}.html
+		s/momodatemomo/${date}/ g" ./.tmp > ../$folder/${1%.md}.html
 
 # Create index feed
 	cat templates/feed.html > ./ip.tmp
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
-		s/momolinkmomo/${f%.md}.html/g
+		s/momolinkmomo/${1%.md}.html/g
 		s/momodatemomo/${date}/ g" ./ip.tmp >> ../$folder/index.html
 
 # Delete tmp files with the markdown metadata
