@@ -4,10 +4,11 @@
 #  
 
 # Reset directory
-folder="${1:-blog}"
+BLOGPATH=$(pwd)"/${2:-../blog}"
+MARKDOWNPATH=$(pwd)"/${1:-../markdown-blog}"
 cd `dirname $0`
-rm -rf ../$folder/*
-cp -R ./assets/* ../$folder
+rm -rf $BLOGPATH/*
+cp -R ./assets/* $BLOGPATH
 
 
 compiling-posts-and-feed(){
@@ -16,49 +17,49 @@ compiling-posts-and-feed(){
   while read VAREXT
   do
     declare -g "$VAREXT"
-  done <<< $(sed -n '/^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /=/g ; p}' ../markdown-$folder/$1)
+  done <<< $(sed -n '/^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /=/g ; p}' $MARKDOWNPATH/$1)
 
 # Create html 
 	sed "s/momotitlemomo/${title}/g
     s/momosubtitlemomo/${subtitle}/g
-		s/momodatemomo/${date}/g" ./templates/header.html ./templates/post-header.html > ../$folder/${1%.md}.html
-	pandoc "../markdown-$folder/$1" >> ../$folder/${1%.md}.html
-	cat templates/footer.html >> ../$folder/${1%.md}.html
+		s/momodatemomo/${date}/g" ./templates/header.html ./templates/post-header.html > $BLOGPATH/${1%.md}.html
+	pandoc "$MARKDOWNPATH/$1" >> $BLOGPATH/${1%.md}.html
+	cat ./templates/footer.html >> $BLOGPATH/${1%.md}.html
 
 # Create index feed
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
 		s/momolinkmomo/${1%.md}.html/g
-		s/momodatemomo/${date}/ g" templates/feed.html >> ../$folder/index.html
+		s/momodatemomo/${date}/ g" templates/feed.html >> $BLOGPATH/index.html
 }
 
 
 # Compiling metadata to index.html
-sed "s/momotitlemomo/Inicio/g" templates/header.html templates/index-header.html > ../$folder/index.html
+sed "s/momotitlemomo/Inicio/g" templates/header.html templates/index-header.html > $BLOGPATH/index.html
 
 # Looping md
-for f in `ls -t ../markdown-$folder`
+for f in `ls -t $MARKDOWNPATH`
 do
     compiling-posts-and-feed $f
 done
 
 # Index footer
-cat templates/footer.html >> ../$folder/index.html
+cat templates/footer.html >> $BLOGPATH/index.html
 
 # Wanna commit?
-read -p "Do want to push (y/n) " PUSH
+read -p "Do want to push [y/n] " PUSH
 
 if [ "$PUSH" = "y" ]
 then
-    echo "Pushing $folder"
-    cd ../$folder
+    echo "Pushing $BLOGPATH"
+    cd $BLOGPATH
     read -p "Insert commit message: " LOL
     git add -A
     git commit -m "$LOL"
     git push
 
-    echo "Pushing markdown-$folder"
-    cd ../markdown-$folder
+    echo "Pushing $MARKDOWNPATH"
+    cd $MARKDOWNPATH
     git add -A
     git commit -m "$LOL"
     git push
