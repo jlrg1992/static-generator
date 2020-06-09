@@ -1,4 +1,7 @@
 #!/bin/bash
+# A script to generate a blog from markdown files
+# Dependencies: Pandoc
+#  
 
 # Reset directory
 folder="${1:-blog}"
@@ -7,43 +10,36 @@ rm -rf ../$folder/*
 cp -R ./assets/* ../$folder
 
 
- compilingFeed(){
+compiling-posts-and-feed(){
 
 # Getting posts metadata
-  sed -n " /^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /='/g ; s/$/'/g ; p}" ../markdown-$folder/$1 > ./v.tmp
-	source ./v.tmp
+  while read VAREXT
+  do
+    declare -g "$VAREXT"
+  done <<< $(sed -n '/^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /=/g ; p}' ../markdown-$folder/$1)
 
-# Create html
-
-    sed '/^\-\-\-$/,/^\-\-\-$/d' "../markdown-$folder/$1" > ./r.tmp
-        
-	pandoc "./r.tmp" >> ./l.tmp
-	cat templates/header.html templates/post-header.html ./l.tmp templates/footer.html > ./.tmp
+# Create html 
 	sed "s/momotitlemomo/${title}/g
-		s/momosubtitlemomo/${subtitle}/g
-		s/momodatemomo/${date}/ g" ./.tmp > ../$folder/${1%.md}.html
+    s/momosubtitlemomo/${subtitle}/g
+		s/momodatemomo/${date}/g" ./templates/header.html ./templates/post-header.html > ../$folder/${1%.md}.html
+	pandoc "../markdown-$folder/$1" >> ../$folder/${1%.md}.html
+	cat templates/footer.html >> ../$folder/${1%.md}.html
 
 # Create index feed
-	cat templates/feed.html > ./ip.tmp
 	sed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
 		s/momolinkmomo/${1%.md}.html/g
-		s/momodatemomo/${date}/ g" ./ip.tmp >> ../$folder/index.html
-
-# Delete tmp files with the markdown metadata
-    rm ./*.tmp
-    rm ./.tmp
+		s/momodatemomo/${date}/ g" templates/feed.html >> ../$folder/index.html
 }
 
 
 # Compiling metadata to index.html
-cat templates/header.html templates/index-header.html > ./tr.tmp
-sed "s/momotitlemomo/Inicio/g" ./tr.tmp > ../$folder/index.html
+sed "s/momotitlemomo/Inicio/g" templates/header.html templates/index-header.html > ../$folder/index.html
 
 # Looping md
 for f in `ls -t ../markdown-$folder`
 do
-    compilingFeed $f
+    compiling-posts-and-feed $f
 done
 
 # Index footer
