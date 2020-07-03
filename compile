@@ -33,13 +33,16 @@ compiling-posts-and-feed(){
 		s/momodatemomo/${date}/ g" templates/feed.html >> $BLOGPATH/index.html
 }
 
+figlet "Blog compiler"
 
 # Compiling metadata to index.html
 sed "s/momotitlemomo/Inicio/g" templates/header.html templates/index-header.html > $BLOGPATH/index.html
-
+COUNTPAGES=""
 # Looping md
 for f in `ls -t $MARKDOWNPATH`
 do
+    COUNTPAGES="${COUNTPAGES}#"
+    echo $COUNTPAGES
     compiling-posts-and-feed $f
 done
 
