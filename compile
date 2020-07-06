@@ -16,8 +16,8 @@ compiling-posts-and-feed(){
 # Getting posts metadata
   while read VAREXT
   do
-    declare -g "$VAREXT"
-  done <<< $(sed -n '/^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /=/g ; p}' $MARKDOWNPATH/$1)
+    declare "$VAREXT"
+  done <<< $(gsed -n '/^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /=/g; p}' $MARKDOWNPATH/$1)
 
 # Create html 
 	sed "s/momotitlemomo/${title}/g
