@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 # A script to generate a blog from markdown files
 # Dependencies: Pandoc
 #  
@@ -9,6 +9,7 @@ MARKDOWNPATH=$(pwd)"/${1:-../markdown-blog}"
 cd `dirname $0`
 rm -rf $BLOGPATH/*
 cp -R ./assets/* $BLOGPATH
+cp CNAME $BLOGPATH
 
 
 compiling-posts-and-feed(){
@@ -16,33 +17,36 @@ compiling-posts-and-feed(){
 # Getting posts metadata
   while read VAREXT
   do
-    declare "$VAREXT"
-  done <<< $(gsed -n '/^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /=/g; p}' $MARKDOWNPATH/$1)
+    declare -g "$VAREXT"
+  done <<< $(gsed -n '/^\-\-\-$/,/^\-\-\-$/{/^\-\-\-$/d ; s/: /=/g; p}' $MARKDOWNPATH/$1 )
+  echo $title
+  echo $subtitle
+  echo $date
+  echo "-------"
+  echo "-------"
+
+
 
 # Create html 
-	sed "s/momotitlemomo/${title}/g
+	gsed "s/momotitlemomo/${title}/g
     s/momosubtitlemomo/${subtitle}/g
 		s/momodatemomo/${date}/g" ./templates/header.html ./templates/post-header.html > $BLOGPATH/${1%.md}.html
 	pandoc "$MARKDOWNPATH/$1" >> $BLOGPATH/${1%.md}.html
 	cat ./templates/footer.html >> $BLOGPATH/${1%.md}.html
 
 # Create index feed
-	sed "s/momotitlemomo/${title}/g
+	gsed "s/momotitlemomo/${title}/g
 		s/momosubtitlemomo/${subtitle}/g
 		s/momolinkmomo/${1%.md}.html/g
 		s/momodatemomo/${date}/ g" templates/feed.html >> $BLOGPATH/index.html
 }
 
-figlet "Blog compiler"
-
 # Compiling metadata to index.html
-sed "s/momotitlemomo/Inicio/g" templates/header.html templates/index-header.html > $BLOGPATH/index.html
+gsed "s/momotitlemomo/Inicio/g" templates/header.html templates/index-header.html > $BLOGPATH/index.html
 COUNTPAGES=""
 # Looping md
 for f in `ls -t $MARKDOWNPATH`
 do
-    COUNTPAGES="${COUNTPAGES}#"
-    echo $COUNTPAGES
     compiling-posts-and-feed $f
 done
 
